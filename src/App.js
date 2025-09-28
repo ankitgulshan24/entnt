@@ -11,9 +11,7 @@ import { initializeMSW } from './mocks/browser';
 import { setApiReady } from './utils/apiReady';
 
 function ProtectedRoute({ isAuthenticated, children }) {
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
+  if (!isAuthenticated) return <Navigate to="/login" replace />;
   return children;
 }
 
@@ -26,33 +24,44 @@ function AppContent() {
     const initializeApp = async () => {
       try {
         console.log('Starting app initialization...');
-        
-        // Initialize MSW for API mocking
-        console.log('Initializing MSW...');
-        await initializeMSW();
-        console.log('MSW initialized successfully');
-        
-        // Wait a bit more to ensure MSW is fully ready
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
+
+        // --- MSW: dev-only (service workers require HTTPS or localhost) ---
+        const isDev =
+          (typeof import.meta !== 'undefined' && import.meta.env?.MODE === 'development') ||
+          process.env.NODE_ENV === 'development';
+
+        if (isDev) {
+          console.log('Initializing MSW (dev only)…');
+          try {
+            await initializeMSW();
+            console.log('MSW initialized successfully');
+          } catch (e) {
+            console.warn('MSW init skipped/failed in dev:', e);
+          }
+        } else {
+          console.log('Skipping MSW in production');
+        }
+
+        // Optional small pause
+        await new Promise((r) => setTimeout(r, 200));
+
         // Initialize IndexedDB
         console.log('Initializing database...');
         await initializeDB();
         console.log('Database initialized successfully');
-        
-        // Wait a bit more to ensure DB is fully ready
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
+
+        await new Promise((r) => setTimeout(r, 200));
+
         // Mark API as ready
         setApiReady(true);
         console.log('App initialization completed successfully - API is ready');
       } catch (error) {
         console.error('Failed to initialize app:', error);
-        // Even if initialization fails, mark API as ready after a delay
+        // Even if initialization fails, mark API as ready after a short delay
         setTimeout(() => {
           setApiReady(true);
           console.log('API marked as ready after initialization error');
-        }, 2000);
+        }, 1000);
       } finally {
         setIsLoading(false);
       }
@@ -61,7 +70,7 @@ function AppContent() {
     initializeApp();
   }, []);
 
-  const handleLogin = (type, userData = {}) => {
+  const handleLogin = (_type, userData = {}) => {
     login(userData, 'hr');
     navigate('/hr');
   };
@@ -75,15 +84,18 @@ function AppContent() {
     return (
       <div className="container">
         <div className="text-center mt-4">
-          <div className="loading-spinner" style={{
-            border: '4px solid #f3f3f3',
-            borderTop: '4px solid #007bff',
-            borderRadius: '50%',
-            width: '50px',
-            height: '50px',
-            animation: 'spin 1s linear infinite',
-            margin: '0 auto 20px auto'
-          }}></div>
+          <div
+            className="loading-spinner"
+            style={{
+              border: '4px solid #f3f3f3',
+              borderTop: '4px solid #007bff',
+              borderRadius: '50%',
+              width: '50px',
+              height: '50px',
+              animation: 'spin 1s linear infinite',
+              margin: '0 auto 20px auto',
+            }}
+          />
           <h2>Loading TalentFlow...</h2>
           <p>Initializing database and API services...</p>
           <style>{`
@@ -100,10 +112,7 @@ function AppContent() {
   return (
     <div className="App">
       <Routes>
-        <Route
-          path="/login"
-          element={<LoginPortal onLogin={handleLogin} />}
-        />
+        <Route path="/login" element={<LoginPortal onLogin={handleLogin} />} />
 
         <Route
           path="/hr"
@@ -122,6 +131,7 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/assessments/:jobId"
           element={
@@ -130,6 +140,7 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/candidates/:candidateId"
           element={
@@ -138,22 +149,15 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
+
         <Route
           path="/"
-          element={
-            isAuthenticated ? (
-              <Navigate to="/hr" replace />
-            ) : (
-              <Navigate to="/login" replace />
-            )
-          }
+          element={<Navigate to={isAuthenticated ? '/hr' : '/login'} replace />}
         />
 
         <Route
           path="*"
-          element={
-            <Navigate to={isAuthenticated ? '/hr' : '/login'} replace />
-          }
+          element={<Navigate to={isAuthenticated ? '/hr' : '/login'} replace />}
         />
       </Routes>
     </div>
