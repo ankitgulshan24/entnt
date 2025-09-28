@@ -1,0 +1,276 @@
+.login-portal {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+}
+
+.login-container {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  width: 100%;
+  max-width: 400px;
+}
+
+.login-header {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  padding: 40px 30px;
+  text-align: center;
+}
+
+.login-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+}
+
+.login-header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin: 0;
+}
+
+.login-form-container {
+  padding: 40px 30px;
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  margin: 25px 0;
+  text-align: center;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: #e9ecef;
+}
+
+.login-divider span {
+  padding: 0 15px;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: white;
+}
+
+.login-form-container h2 {
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login-form-container p {
+  color: #666;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 0.95rem;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.role-selection {
+  margin-bottom: 30px;
+}
+
+.role-selection h3 {
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.role-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.role-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.role-btn-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.role-title {
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+
+.role-credentials {
+  opacity: 0.7;
+  font-size: 0.8rem;
+}
+
+.role-credentials small {
+  font-style: italic;
+  color: #666;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid #e1e5e9;
+  color: #666;
+}
+
+.btn-outline:hover {
+  border-color: #007bff;
+  color: #007bff;
+  background: rgba(0, 123, 255, 0.05);
+}
+
+.user-details-form {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid #e9ecef;
+}
+
+.user-details-form h3 {
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: #fafbfc;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.login-btn {
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: none;
+}
+
+.login-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+.login-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.login-footer {
+  background-color: #f8f9fa;
+  padding: 20px 30px;
+  text-align: center;
+  border-top: 1px solid #e9ecef;
+}
+
+.login-footer p {
+  color: #6c757d;
+  font-size: 0.85rem;
+  margin: 0 0 15px 0;
+}
+
+.sample-credentials {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #e9ecef;
+}
+
+.sample-credentials h4 {
+  color: #333;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: 0 0 10px 0;
+}
+
+.credentials-list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.credential-item {
+  font-size: 0.8rem;
+  color: #666;
+  padding: 4px 0;
+}
+
+.credential-item strong {
+  color: #333;
+  font-weight: 600;
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .login-container {
+    margin: 10px;
+    max-width: none;
+  }
+  
+  .login-header {
+    padding: 30px 20px;
+  }
+  
+  .login-header h1 {
+    font-size: 2rem;
+  }
+  
+  .login-form-container {
+    padding: 30px 20px;
+  }
+}
+

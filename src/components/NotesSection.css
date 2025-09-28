@@ -1,0 +1,232 @@
+.notes-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.note-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.note-input-container {
+  position: relative;
+}
+
+.note-textarea {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid #e1e5e9;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 80px;
+  transition: all 0.3s ease;
+  background-color: #fafbfc;
+}
+
+.note-textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: white;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.note-textarea:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.mentions-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 2px;
+}
+
+.mention-item {
+  padding: 12px 15px;
+  cursor: pointer;
+  border-bottom: 1px solid #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+.mention-item:hover {
+  background-color: #f8f9fa;
+}
+
+.mention-item:last-child {
+  border-bottom: none;
+}
+
+.mention-item.no-results {
+  color: #666;
+  font-style: italic;
+  cursor: default;
+}
+
+.mention-item.no-results:hover {
+  background-color: transparent;
+}
+
+.mention-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.mention-role {
+  color: #666;
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+.note-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.notes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.note-item {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid #e9ecef;
+}
+
+.note-header {
+  margin-bottom: 10px;
+}
+
+.note-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.author-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.author-info {
+  flex: 1;
+}
+
+.author-name {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.note-date {
+  color: #666;
+  font-size: 0.8rem;
+  margin-top: 2px;
+}
+
+.note-content {
+  color: #333;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.mention {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  margin: 0 2px;
+}
+
+.no-notes {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.no-notes p {
+  margin: 0;
+  font-style: italic;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .note-textarea {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  
+  .mentions-dropdown {
+    max-height: 150px;
+  }
+  
+  .mention-item {
+    padding: 10px 12px;
+  }
+  
+  .note-item {
+    padding: 12px;
+  }
+  
+  .notes-list {
+    max-height: 300px;
+  }
+}
+
+
