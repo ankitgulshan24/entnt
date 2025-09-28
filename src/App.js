@@ -7,7 +7,8 @@ import AssessmentBuilder from './components/AssessmentBuilder';
 import CandidateProfile from './components/CandidateProfile';
 import { UserProvider, useUser } from './contexts/UserContext';
 import { initializeDB } from './utils/database';
-import { initializeMSW } from './mocks/browser';
+// ❌ REMOVE static MSW import
+// import { initializeMSW } from './mocks/browser';
 import { setApiReady } from './utils/apiReady';
 
 function ProtectedRoute({ isAuthenticated, children }) {
@@ -25,7 +26,7 @@ function AppContent() {
       try {
         console.log('Starting app initialization...');
 
-        // --- MSW: dev-only (service workers require HTTPS or localhost) ---
+        // Dev-only MSW via dynamic import (prevents prod side-effects/bundling)
         const isDev =
           (typeof import.meta !== 'undefined' && import.meta.env?.MODE === 'development') ||
           process.env.NODE_ENV === 'development';
@@ -33,6 +34,7 @@ function AppContent() {
         if (isDev) {
           console.log('Initializing MSW (dev only)…');
           try {
+            const { initializeMSW } = await import('./mocks/browser');
             await initializeMSW();
             console.log('MSW initialized successfully');
           } catch (e) {
@@ -42,22 +44,19 @@ function AppContent() {
           console.log('Skipping MSW in production');
         }
 
-        // Optional small pause
+        // tiny pause (optional)
         await new Promise((r) => setTimeout(r, 200));
 
-        // Initialize IndexedDB
         console.log('Initializing database...');
         await initializeDB();
         console.log('Database initialized successfully');
 
         await new Promise((r) => setTimeout(r, 200));
 
-        // Mark API as ready
         setApiReady(true);
         console.log('App initialization completed successfully - API is ready');
       } catch (error) {
         console.error('Failed to initialize app:', error);
-        // Even if initialization fails, mark API as ready after a short delay
         setTimeout(() => {
           setApiReady(true);
           console.log('API marked as ready after initialization error');
